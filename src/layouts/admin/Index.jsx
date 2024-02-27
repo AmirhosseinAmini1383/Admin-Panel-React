@@ -4,7 +4,8 @@ import Sidebar from "./sidebar/Sidebar";
 import AdminContextContainer, {
   AdminContext,
 } from "../../context/adminLayoutContext";
-import Dashboard from "../../pages/dashboard/Dashboard";
+// import Dashboard from "../../pages/dashboard/Dashboard";
+import Category from "../../pages/category/Category";
 
 const Index = () => {
   const { showSidebar } = useContext(AdminContext);
@@ -19,7 +20,8 @@ const Index = () => {
             showSidebar ? "with_sidebar" : null
           }`}
         >
-          <Dashboard />
+          {/* <Dashboard /> */}
+          <Category />
         </section>
       </div>
     </AdminContextContainer>
