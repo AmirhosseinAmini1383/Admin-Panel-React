@@ -1,28 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import Navbar from "./navbar/Navbar";
 import Sidebar from "./sidebar/Sidebar";
-import AdminContextContainer, {
-  AdminContext,
-} from "../../context/adminLayoutContext";
-// import Dashboard from "../../pages/dashboard/Dashboard";
-import Category from "../../pages/category/Category";
+import AdminContextContainer from "../../context/adminLayoutContext";
+import Content from "../../pages/Content";
 
 const Index = () => {
-  const { showSidebar } = useContext(AdminContext);
   return (
     <AdminContextContainer>
       <div>
+        <Content />
         <Navbar />
         <Sidebar />
-        <section
-          id="content_section"
-          className={`bg-light py-2 px-3 ${
-            showSidebar ? "with_sidebar" : null
-          }`}
-        >
-          {/* <Dashboard /> */}
-          <Category />
-        </section>
       </div>
     </AdminContextContainer>
   );
