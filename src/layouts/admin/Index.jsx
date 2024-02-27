@@ -4,6 +4,7 @@ import Sidebar from "./sidebar/Sidebar";
 import AdminContextContainer, {
   AdminContext,
 } from "../../context/adminLayoutContext";
+import Dashboard from "../../pages/dashboard/Dashboard";
 
 const Index = () => {
   const { showSidebar } = useContext(AdminContext);
@@ -17,7 +18,9 @@ const Index = () => {
           className={`bg-light py-2 px-3 ${
             showSidebar ? "with_sidebar" : null
           }`}
-        ></section>
+        >
+          <Dashboard />
+        </section>
       </div>
     </AdminContextContainer>
   );

@@ -31,7 +31,7 @@
 //     });
 //   }
 
-//   // chart-------------->>
+// chart-------------->>
 //   const DATA_COUNT = 13;
 
 //   const labels = [
