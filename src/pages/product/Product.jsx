@@ -1,6 +1,6 @@
 import React from "react";
-import TableProduct from "./TableProduct";
 import AddProduct from "./AddProduct";
+import ProductTable from "./ProductTable";
 
 const Product = () => {
   return (
@@ -30,7 +30,7 @@ const Product = () => {
           </button>
         </div>
       </div>
-      <TableProduct />
+      <ProductTable />
       <AddProduct />
     </div>
   );
