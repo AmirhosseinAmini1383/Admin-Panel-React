@@ -26,6 +26,13 @@ a {
 .navbar.fixed-top {
   z-index: unset !important;
 }
+.disabled {
+  pointer-events: none !important;
+  opacity: 0.5;
+}
+.pcounter-success {
+  background-color: rgb(212, 229, 251);
+}
 /* scrollbars ------------------ */
 ::-webkit-scrollbar {
   width: 5px !important;

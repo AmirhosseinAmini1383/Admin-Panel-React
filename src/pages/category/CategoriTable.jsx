@@ -39,6 +39,15 @@ const CategoriTable = () => {
       like_count: "2",
       status: "1",
     },
+    {
+      id: "5",
+      category: "ccc",
+      title: "Shahin",
+      price: "700,000,000",
+      stock: "7",
+      like_count: "2",
+      status: "1",
+    },
   ];
 
   const dataInfo = [

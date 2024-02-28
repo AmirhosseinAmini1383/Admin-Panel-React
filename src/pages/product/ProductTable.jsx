@@ -110,7 +110,7 @@ const ProductTable = () => {
         </tbody>
       </table>
       <nav
-        aria-label="Page navigation example"
+        aria-label=" navigation example"
         className="d-flex justify-content-center"
       >
         <ul className="pagination dir_ltr">
