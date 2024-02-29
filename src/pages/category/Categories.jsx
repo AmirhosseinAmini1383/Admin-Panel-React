@@ -1,7 +1,7 @@
 import React from "react";
 import CategoriTable from "./CategoriTable";
 
-const Category = () => {
+const Categories = () => {
   return (
     <div
       id="manage_product_category"
@@ -13,4 +13,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Categories;

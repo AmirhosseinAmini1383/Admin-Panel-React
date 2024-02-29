@@ -2,7 +2,7 @@ import React from "react";
 import AddProduct from "./AddProduct";
 import ProductTable from "./ProductTable";
 
-const Product = () => {
+const Products = () => {
   return (
     <div
       id="manage_product_section"
@@ -14,4 +14,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Products;
