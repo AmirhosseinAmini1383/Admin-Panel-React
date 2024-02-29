@@ -51,53 +51,53 @@ const Sidebar = () => {
             icon={"fas fa-palette"}
           />
           <SidebarItem
-            targetPath={"/test"}
+            targetPath={"/discounts"}
             title={"مدیریت تخفیف ها"}
             icon={"fas fa-percentage"}
           />
           {/* <!-- =================================== --> */}
           <SidebarGroupTitle title={"سفارشات و سبد"} />
           <SidebarItem
-            targetPath={"/test"}
+            targetPath={"/carts"}
             title={"مدیریت سبد ها"}
             icon={"fas fa-shopping-basket"}
           />
           <SidebarItem
-            targetPath={"/test"}
+            targetPath={"/orders"}
             title={"مدیریت سفارشات"}
             icon={"fas fa-luggage-cart"}
           />
           <SidebarItem
-            targetPath={"/test"}
+            targetPath={"/deliveries"}
             title={"مدیریت نحوه ارسال"}
             icon={"fas fa-truck-loading"}
           />
           {/* <!-- =================================== --> */}
           <SidebarGroupTitle title={"کاربران و همکاران"} />
           <SidebarItem
-            targetPath={"/test"}
+            targetPath={"/users"}
             title={"مشاهده کاربران"}
             icon={"fas fa-users"}
           />
           <SidebarItem
-            targetPath={"/test"}
+            targetPath={"/roles"}
             title={"نقش ها"}
             icon={"fas fa-user-tag"}
           />
           <SidebarItem
-            targetPath={"/test"}
+            targetPath={"/permissions"}
             title={"مجوز ها"}
             icon={"fas fa-shield-alt"}
           />
           {/* <!-- =================================== --> */}
           <SidebarGroupTitle title={"ارتباطات"} />
           <SidebarItem
-            targetPath={"/test"}
+            targetPath={"/questions"}
             title={"سوال ها"}
             icon={"fas fa-question-circle"}
           />
           <SidebarItem
-            targetPath={"/test"}
+            targetPath={"/comments"}
             title={"نظرات"}
             icon={"fas fa-comment"}
           />
