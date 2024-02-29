@@ -27,8 +27,8 @@ const AddCarts = () => {
                   placeholder="نام مشتری"
                 />
                 <datalist id="customer_list">
-                  <option value="مشتری شماره 1"></option>
-                  <option value="مشتری شماره 2"></option>
+                  <option defaultValue="مشتری شماره 1"></option>
+                  <option defaultValue="مشتری شماره 2"></option>
                 </datalist>
               </div>
               <div className="col-12 col-md-4 col-lg-2 my-1">
@@ -39,22 +39,22 @@ const AddCarts = () => {
                   placeholder="عنوان محصول"
                 />
                 <datalist id="product_list">
-                  <option value="محصول شماره 1"></option>
-                  <option value="محصول شماره 2"></option>
+                  <option defaultValue="محصول شماره 1"></option>
+                  <option defaultValue="محصول شماره 2"></option>
                 </datalist>
               </div>
               <div className="col-12 col-md-4 col-lg-2 my-1">
                 <select className="form-control">
-                  <option value="">انتخاب رنگ</option>
-                  <option value="1">رنگ شماره 1</option>
-                  <option value="2">رنگ شماره 2</option>
+                  <option defaultValue="">انتخاب رنگ</option>
+                  <option defaultValue="1">رنگ شماره 1</option>
+                  <option defaultValue="2">رنگ شماره 2</option>
                 </select>
               </div>
               <div className="col-12 col-md-4 col-lg-2 my-1">
                 <select className="form-control">
-                  <option value="">انتخاب گارانتی</option>
-                  <option value="1">گارانتی شماره 1</option>
-                  <option value="2">گارانتی شماره 2</option>
+                  <option defaultValue="">انتخاب گارانتی</option>
+                  <option defaultValue="1">گارانتی شماره 1</option>
+                  <option defaultValue="2">گارانتی شماره 2</option>
                 </select>
               </div>
               <div className="col-12 col-md-4 col-lg-2 my-1">
@@ -84,7 +84,7 @@ const AddCarts = () => {
                     type="number"
                     className="form-control text-center w_15"
                     placeholder=""
-                    value="50"
+                    defaultValue="50"
                   />
                   <span className="input-group-text text-end w_70 font_08 d-flex align-items-center text_truncate">
                     <i
@@ -109,7 +109,7 @@ const AddCarts = () => {
                     type="number"
                     className="form-control text-center w_15"
                     placeholder=""
-                    value="5"
+                    defaultValue="5"
                   />
                   <span className="input-group-text text-end w_70 font_08 d-flex align-items-center text_truncate">
                     <i

@@ -1,6 +1,6 @@
 import React from "react";
-import AddProduct from "./AddProduct";
 import ProductTable from "./ProductTable";
+import SetAttribute from "./SetAttribute";
 
 const Products = () => {
   return (
@@ -10,6 +10,7 @@ const Products = () => {
     >
       <h4 className="text-center my-3">مدیریت محصولات</h4>
       <ProductTable />
+      <SetAttribute />
     </div>
   );
 };
