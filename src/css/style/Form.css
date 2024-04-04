@@ -1,0 +1,271 @@
+:root {
+  --Black: #212529;
+  --LightGray: #f3f5f9;
+  --SkyBlue: #7dcaee;
+  --Red: #ee7d7d;
+  --Purper: #500fe9;
+  --PurpleInput: #837dee;
+  --Pink: #ee7daa;
+  --White: #f8f9fa;
+}
+@font-face {
+  font-family: Vazir;
+  src: url(../font/Vazir-Medium.woff);
+}
+body {
+  background: var(--LightGray);
+  padding: 0;
+  margin: 0;
+}
+* {
+  font-family: Vazir;
+}
+.title {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+.form {
+  width: 300px;
+  margin: 0 auto;
+}
+.form-label {
+  text-align: right;
+}
+label {
+  font-size: 13px;
+  padding: 5px 0px;
+}
+.displayform {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  direction: rtl;
+}
+.FavDiv {
+  position: relative;
+  margin-top: 40px;
+}
+.FavLabel {
+  position: absolute;
+  top: -40px;
+  right: 35px;
+  z-index: 9999999;
+}
+.FavInput {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.BtnAddFav {
+  width: 25px;
+  height: 25px;
+  top: -25px;
+  right: 5px;
+  position: absolute;
+  z-index: 999999999;
+}
+.BtnRemoveFav {
+  width: 20px;
+  height: 20px;
+  top: 20px;
+  left: 5px;
+  position: absolute;
+}
+.btnform {
+  text-align: center;
+  direction: rtl;
+}
+.btn {
+  border: none;
+  width: 100%;
+  padding: 8px 0px;
+  font-family: Vazir;
+  font-size: 16px;
+  color: var(--White);
+  border-radius: 5px;
+  margin-top: 12px;
+  transition: all 1s;
+}
+.btn:hover {
+  color: var(--White);
+  opacity: 0.8;
+}
+.Add {
+  background: var(--Purper);
+}
+.displayRadio {
+  display: flex;
+  justify-content: end;
+}
+.radio {
+  padding: 10px;
+}
+.form-control {
+  background-color: var(--LightGray);
+  border: 1px solid #ccc;
+  height: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(177, 182, 187, 0.1);
+  transition: border-color 0.3s ease-in-out;
+  outline: none;
+  font-family: Vazir;
+  padding-right: 5px;
+}
+.input_margin_bottom {
+  margin-bottom: 21px;
+}
+.form-control:hover {
+  box-shadow: 0 0 3px rgba(118, 131, 145, 0.8);
+}
+.form-control::placeholder {
+  color: #969ba2;
+  padding-right: 5px;
+  font-size: 12px;
+  transition: font-size 0.3s ease-in-out;
+}
+.form-control:focus::placeholder {
+  color: var(--PurpleInput);
+  position: fixed;
+  padding-top: 6px;
+  top: 0;
+  font-size: 10px;
+}
+.form-control:focus {
+  border-color: var(--PurpleInput);
+  box-shadow: none;
+}
+
+.input-err {
+  border: 1px solid var(--Red);
+  margin-bottom: 0px;
+}
+.input-err:hover {
+  box-shadow: none;
+}
+.input-err::placeholder {
+  color: var(--Red);
+}
+.input-err:focus::placeholder {
+  color: var(--Red);
+}
+.input-err:focus {
+  border-color: var(--Red);
+}
+
+.bio-textarea {
+  max-width: 780px;
+  min-width: 400px;
+  max-height: 250px;
+  min-height: 50px;
+}
+.login-info {
+  color: var(gray);
+  direction: ltr;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-content: center;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 12px;
+}
+.p-info {
+  margin-left: 10px;
+  margin-bottom: 0px;
+  cursor: default;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--Purper);
+}
+.err-validate {
+  margin-top: 5px;
+  font-size: 10px;
+  color: var(--Red);
+  /* transition: 0.3s all; */
+}
+.icon_password {
+  position: relative;
+  bottom: 52.5px;
+  right: 275px;
+}
+.toggle-Pass {
+  width: 18px;
+  height: 18px;
+}
+.check-box-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  direction: ltr;
+}
+.remember-text {
+  font-size: 13px;
+  margin: 0px;
+}
+/* CheckBox */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 2.5px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(22px);
+  -ms-transform: translateX(22px);
+  transform: translateX(22px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 40px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+@media (max-width: 400px) {
+  .form {
+    width: calc(100% - 20px);
+  }
+}
