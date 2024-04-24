@@ -1,4 +1,4 @@
-import { ErrorMessage, FastField } from "formik";
+import { ErrorMessage, Field } from "formik";
 import React from "react";
 import PersonalError from "../Personal/PersonalError";
 
@@ -9,7 +9,7 @@ const Input = (props) => {
   return (
     <div className="displayform">
       <label className="form-label">{label}</label>
-      <FastField
+      <Field
         type={type}
         className={`form-control input_margin_bottom ${
           isError ? "input-err" : ""

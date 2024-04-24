@@ -1,46 +1,51 @@
 import React, { useState } from "react";
-import * as Yup from "yup";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
-import "../../css/style/Form.css";
+import * as Yup from "yup";
+
+import "../../css/style/form.css";
 import AuthFormikControl from "../../components/authForm/AuthFormikControl";
-import { Link } from "react-router-dom";
 import showPassword from "../../css/images/show-password.png";
 import hidePassword from "../../css/images/hide-password.png";
-import axios from "axios";
+
+const initialValues = {
+  phone: "",
+  password: "",
+  remember: false,
+};
+const onSubmit = (values, navigate) => {
+  axios
+    .post("https://ecomadminapi.azhadev.ir/api/auth/login", {
+      ...values,
+      remember: values.remember ? 1 : 0,
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.status == 200) {
+        localStorage.setItem("loginToken", JSON.stringify(res.data));
+        navigate("/");
+      }
+    });
+};
+const validationSchema = Yup.object({
+  phone: Yup.string()
+    .required("وارد کردن شماره موبایل الزامی است")
+    .matches(/^(09\d{9})$/, "شماره موبایل خود را به درستی وارد کنید"),
+  password: Yup.string().required("وارد کردن گذرواژه الزامی است"),
+  // .matches(
+  //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$&*]).{8,}$/,
+  //   "فقط از حروف و اعداد استفاده شود"
+  // ),
+  remember: Yup.boolean(),
+});
 const Login = () => {
   const [visible, setVisible] = useState(true);
-  const initialValues = {
-    phone: "",
-    password: "",
-    remember: false,
-  };
-
-  const onSubmit = (values) => {
-    axios
-      .post("https://ecomadminapi.azhadev.ir/api/auth/login", {
-        ...values,
-        remember: values.remember ? 1 : 0,
-      })
-      .then((res) => {
-        console.log(res);
-      });
-  };
-  const validationSchema = Yup.object({
-    phone: Yup.string()
-      .required("وارد کردن شماره موبایل الزامی است")
-      .matches(/^(09\d{9})$/, "شماره موبایل خود را به درستی وارد کنید"),
-    password: Yup.string()
-      .required("وارد کردن گذرواژه الزامی است")
-      .matches(
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$&*]).{8,}$/,
-        "فقط از حروف و اعداد استفاده شود"
-      ),
-    remember: Yup.boolean(),
-  });
+  const navigate = useNavigate();
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={onSubmit}
+      onSubmit={(values) => onSubmit(values, navigate)}
       validationSchema={validationSchema}
     >
       {(formik) => {
@@ -77,13 +82,13 @@ const Login = () => {
                     <img
                       src={hidePassword}
                       alt="hidePassword"
-                      className="toggle-Pass"
+                      className="toggle_Pass"
                     />
                   ) : (
                     <img
                       src={showPassword}
                       alt="showPassword"
-                      className="toggle-Pass"
+                      className="toggle_Pass"
                     />
                   )}
                 </div>
@@ -94,16 +99,16 @@ const Login = () => {
                   label="مرا بخاطر بسپارید"
                 />
                 <div className="btnform">
-                  <button className="btn Add" type="submit">
+                  <button className="button Add" type="submit">
                     ورود
                   </button>
                 </div>
               </div>
             </Form>
             <div>
-              <div className="login-info">
+              <div className="login_info">
                 <Link to={"/register"}>ثبت نام کنید</Link>
-                <p className="p-info">قبلا ثبت نام نکرده اید؟</p>
+                <p className="p_info">قبلا ثبت نام نکرده اید؟</p>
               </div>
             </div>
           </div>

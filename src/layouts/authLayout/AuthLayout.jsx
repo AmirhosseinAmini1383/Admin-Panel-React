@@ -1,13 +1,22 @@
 import React from "react";
 import Login from "../../pages/auth/Login";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+
+import { useIsLogin } from "../../hook/authHook";
 
 const AuthLayout = () => {
+  const [isLogin, loading] = useIsLogin();
   return (
     <div>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      {loading ? (
+        <h1 className="waiting_center">صبر کنید</h1>
+      ) : !isLogin ? (
+        <Routes>
+          <Route path="/auth/login" element={<Login />} />
+        </Routes>
+      ) : (
+        <Navigate to={"/"} />
+      )}
     </div>
   );
 };

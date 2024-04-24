@@ -34,7 +34,6 @@ const Dashboard = () => {
           lastWeekValue={13}
           lastMonthValue={18}
         />
-
         <Card
           currentValue={5}
           title="سفارشات مانده امروز"
