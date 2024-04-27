@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
+import { Route, Routes } from "react-router-dom";
+
 import { AdminContext } from "../context/adminLayoutContext";
 import Categories from "./category/Categories";
 import Products from "./product/Products";
 import Dashboard from "./dashboard/Dashboard";
-import { Route, Routes } from "react-router-dom";
 import Colors from "./colors/Colors";
 import Guaranties from "./guaranties/Guaranties";
 import Brands from "./brands/Brands";
@@ -16,6 +17,7 @@ import Roles from "./roles/Roles";
 import Permissions from "./permissions/Permissions";
 import Questions from "./questions/Questions";
 import Comments from "./comments/Comments";
+import Logout from "./auth/Logout";
 
 const Content = () => {
   const { showSidebar } = useContext(AdminContext);
@@ -40,6 +42,7 @@ const Content = () => {
         <Route path="/permissions" element={<Permissions />} />
         <Route path="/questions" element={<Questions />} />
         <Route path="/comments" element={<Comments />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<Dashboard />} />
       </Routes>
     </section>

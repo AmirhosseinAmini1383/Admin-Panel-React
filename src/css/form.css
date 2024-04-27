@@ -10,7 +10,7 @@
 }
 @font-face {
   font-family: Vazir;
-  src: url(../font/Vazir-Medium.woff);
+  src: url(../../public/assets/fonts/vazir/Vazir-Medium.woff);
 }
 body {
   background: var(--LightGray);
@@ -20,6 +20,33 @@ body {
 * {
   font-family: Vazir;
 }
+
+.waiting_center {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* animation-name: opacityChange; */
+  /* animation-iteration-count: infinite; */
+  /* animation-duration: 1s; */
+}
+/* 
+  @keyframes opacityChange {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+} */
 .title {
   text-align: center;
   margin-top: 50px;
@@ -42,35 +69,7 @@ label {
   grid-template-columns: repeat(1, 1fr);
   direction: rtl;
 }
-.FavDiv {
-  position: relative;
-  margin-top: 40px;
-}
-.FavLabel {
-  position: absolute;
-  top: -40px;
-  right: 35px;
-  z-index: 9999999;
-}
-.FavInput {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.BtnAddFav {
-  width: 25px;
-  height: 25px;
-  top: -25px;
-  right: 5px;
-  position: absolute;
-  z-index: 999999999;
-}
-.BtnRemoveFav {
-  width: 20px;
-  height: 20px;
-  top: 20px;
-  left: 5px;
-  position: absolute;
-}
+
 .btnform {
   text-align: center;
   direction: rtl;
@@ -93,13 +92,7 @@ label {
 .Add {
   background: var(--Purper);
 }
-.displayRadio {
-  display: flex;
-  justify-content: end;
-}
-.radio {
-  padding: 10px;
-}
+
 .form-control {
   background-color: var(--LightGray);
   border: 1px solid #ccc;
@@ -160,11 +153,8 @@ label {
 }
 .login_info {
   color: var(gray);
-  direction: ltr;
   display: flex;
   justify-content: center;
-  align-self: center;
-  align-content: center;
   align-items: center;
   margin-top: 15px;
   font-size: 12px;
@@ -185,13 +175,13 @@ a {
   /* transition: 0.3s all; */
 }
 .icon_password {
-  width: 0px;
-  height: 0px;
+  position: absolute;
+  top: 240px;
+  padding-left: 7px;
+  width: 18px;
+  height: 18px;
 }
 .toggle_Pass {
-  position: relative;
-  bottom: 50px;
-  left: 10px;
   width: 18px;
   height: 18px;
 }
@@ -199,13 +189,9 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  direction: ltr;
-  margin-top: 10px;
-  margin-bottom: 5px;
 }
 .remember-text {
   font-size: 13px;
-  margin: 0px;
 }
 /* CheckBox */
 .switch {

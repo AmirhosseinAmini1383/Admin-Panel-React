@@ -4,28 +4,37 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import "../../css/style/form.css";
+import "../../css/form.css";
 import AuthFormikControl from "../../components/authForm/AuthFormikControl";
-import showPassword from "../../css/images/show-password.png";
-import hidePassword from "../../css/images/hide-password.png";
+import { Alert } from "../../utils/alerts";
 
 const initialValues = {
   phone: "",
   password: "",
   remember: false,
 };
-const onSubmit = (values, navigate) => {
+const onSubmit = (values, submitMethods, navigate) => {
   axios
     .post("https://ecomadminapi.azhadev.ir/api/auth/login", {
       ...values,
       remember: values.remember ? 1 : 0,
     })
     .then((res) => {
-      console.log(res);
       if (res.status == 200) {
         localStorage.setItem("loginToken", JSON.stringify(res.data));
         navigate("/");
+      } else {
+        Alert("!ورود انجام نشد", res.data.message, "error");
       }
+      submitMethods.setSubmitting(false);
+    })
+    .catch((error) => {
+      submitMethods.setSubmitting(false);
+      Alert(
+        "!خروج انجام نشد",
+        "متاسفانه مشکلی از سمت سرور رخ داده است",
+        "error"
+      );
     });
 };
 const validationSchema = Yup.object({
@@ -45,13 +54,15 @@ const Login = () => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values) => onSubmit(values, navigate)}
+      onSubmit={(values, submitMethods) =>
+        onSubmit(values, submitMethods, navigate)
+      }
       validationSchema={validationSchema}
     >
       {(formik) => {
         console.log(formik);
         return (
-          <div>
+          <div className="container_Login">
             <h1 className="title">&lt;/A&gt; ورود به </h1>
             <Form>
               <div className="form">
@@ -80,15 +91,15 @@ const Login = () => {
                 >
                   {visible ? (
                     <img
-                      src={hidePassword}
-                      alt="hidePassword"
+                      src={"/assets/images/icon/hidePassword.png"}
                       className="toggle_Pass"
+                      alt="hidePassword"
                     />
                   ) : (
                     <img
-                      src={showPassword}
-                      alt="showPassword"
+                      src={"/assets/images/icon/showPassword.png"}
                       className="toggle_Pass"
+                      alt="showPassword"
                     />
                   )}
                 </div>
@@ -98,9 +109,13 @@ const Login = () => {
                   name="remember"
                   label="مرا بخاطر بسپارید"
                 />
-                <div className="btnform">
-                  <button className="button Add" type="submit">
-                    ورود
+                <div>
+                  <button
+                    className="button Add"
+                    type="submit"
+                    disabled={formik.isSubmitting}
+                  >
+                    {formik.isSubmitting ? "...لطفا صبر کیند" : "ورود"}
                   </button>
                 </div>
               </div>

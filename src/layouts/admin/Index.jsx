@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { Navigate } from "react-router-dom";
 
 import Navbar from "./navbar/Navbar";
@@ -13,7 +12,11 @@ const Index = () => {
   return (
     <AdminContextContainer>
       {loading ? (
-        <h1 className="waiting_center">صبر کنید</h1>
+        <img
+          src={"/assets/images/icon/loading.gif"}
+          alt="loading"
+          className="waiting_center"
+        />
       ) : isLogin ? (
         <div>
           <Content />

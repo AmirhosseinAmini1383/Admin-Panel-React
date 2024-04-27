@@ -1,15 +1,19 @@
 import React from "react";
-import Login from "../../pages/auth/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useIsLogin } from "../../hook/authHook";
+import Login from "../../pages/auth/Login";
 
 const AuthLayout = () => {
   const [isLogin, loading] = useIsLogin();
   return (
     <div>
       {loading ? (
-        <h1 className="waiting_center">صبر کنید</h1>
+        <img
+          src={"/assets/images/icon/loading.gif"}
+          alt="loading"
+          className="waiting_center"
+        />
       ) : !isLogin ? (
         <Routes>
           <Route path="/auth/login" element={<Login />} />
