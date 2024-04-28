@@ -57,7 +57,7 @@ const CategoriTable = () => {
     { field: "price", title: "قیمت محصول" },
   ];
   const additionalElements = (itemId) => {
-    console.log(itemId);
+    // console.log(itemId);
     return (
       <>
         <i
