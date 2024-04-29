@@ -18,6 +18,7 @@ import Permissions from "./permissions/Permissions";
 import Questions from "./questions/Questions";
 import Comments from "./comments/Comments";
 import Logout from "./auth/Logout";
+import CategoryChildren from "./category/CategoryChildren";
 
 const Content = () => {
   const { showSidebar } = useContext(AdminContext);
@@ -29,7 +30,7 @@ const Content = () => {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/categories" element={<Categories />}>
-          <Route path=":categoryId" />
+          <Route path=":categoryId" element={<CategoryChildren />} />
         </Route>
         <Route path="/products" element={<Products />} />
         <Route path="/colors" element={<Colors />} />

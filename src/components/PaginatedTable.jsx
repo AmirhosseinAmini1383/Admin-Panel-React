@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PrevPageButton from "./PrevPageButton";
 
 const PaginatedTable = ({
   data,

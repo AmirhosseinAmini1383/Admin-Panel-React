@@ -6,7 +6,8 @@ import { getCategoriesService } from "../../services/category";
 import { Alert } from "../../utils/alerts";
 import ShowInMenu from "./tableAdditions/ShowInMenu";
 import Actions from "./tableAdditions/Actions";
-import { useLocation, useParams } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
+import { convertDateToJalali } from "../../utils/convertDate";
 
 const CategoriTable = () => {
   const params = useParams();
@@ -25,8 +26,6 @@ const CategoriTable = () => {
     }
   };
   useEffect(() => {
-    console.log(location);
-    console.log(params);
     handleGetCategories();
   }, [params]);
 
@@ -34,9 +33,12 @@ const CategoriTable = () => {
     { field: "id", title: "#" },
     { field: "title", title: "عنوان محصول" },
     { field: "parent_id", title: "والد" },
-    { field: "created_at", title: "تارخ" },
   ];
   const additionField = [
+    {
+      title: "تاریخ",
+      elements: (rowData) => convertDateToJalali(rowData.created_at),
+    },
     {
       title: "نمایش در منو",
       elements: (rowData) => <ShowInMenu rowData={rowData} />,
@@ -53,21 +55,20 @@ const CategoriTable = () => {
   };
   return (
     <>
-      {location.state ? (
-        <h5 className="text-center">
-          <span>زیر گروه:</span>
-          <span className="text-info">{location.state.parentData.title}</span>
-        </h5>
-      ) : null}
-      <PaginatedTable
-        data={data}
-        dataInfo={dataInfo}
-        additionField={additionField}
-        numOfPage={2}
-        searchParams={searchParams}
-      >
-        <AddCategory />
-      </PaginatedTable>
+      <Outlet />
+      {data.length ? (
+        <PaginatedTable
+          data={data}
+          dataInfo={dataInfo}
+          additionField={additionField}
+          numOfPage={2}
+          searchParams={searchParams}
+        >
+          <AddCategory />
+        </PaginatedTable>
+      ) : (
+        <h5 className="text-center my-5 text-danger">هیچ دسته بندی یافت نشد</h5>
+      )}
     </>
   );
 };
