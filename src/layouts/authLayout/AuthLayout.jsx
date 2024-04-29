@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useIsLogin } from "../../hook/authHook";
 import Login from "../../pages/auth/Login";
+// import Register from "../../pages/auth/Register";
 
 const AuthLayout = () => {
   const [isLogin, loading] = useIsLogin();
@@ -17,6 +18,7 @@ const AuthLayout = () => {
       ) : !isLogin ? (
         <Routes>
           <Route path="/auth/login" element={<Login />} />
+          {/* <Route path="/auth/register" element={<Register />} /> */}
         </Routes>
       ) : (
         <Navigate to={"/"} />
