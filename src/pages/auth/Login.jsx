@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -6,6 +7,7 @@ import * as Yup from "yup";
 import "../../css/form.css";
 import AuthFormikControl from "../../components/authForm/AuthFormikControl";
 import { Alert } from "../../utils/alerts";
+import httpService from "../../services/httpservice";
 import { loginService } from "../../services/auth";
 
 const initialValues = {
@@ -113,7 +115,7 @@ const Login = () => {
             </Form>
             <div>
               <div className="login_info">
-                <Link to={"/register"}>ثبت نام کنید</Link>
+                <Link to={"/"}>ثبت نام کنید</Link>
                 <p className="p_info">قبلا ثبت نام نکرده اید؟</p>
               </div>
             </div>

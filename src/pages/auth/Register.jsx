@@ -98,7 +98,7 @@ const Register = () => {
             </Form>
             <div>
               <div className="login_info">
-                <Link to={"/login"}>وارد شوید</Link>
+                <Link to={"/auth/login"}>وارد شوید</Link>
                 <p className="p_info">قبلا ثبت نام کرده اید؟</p>
               </div>
             </div>
