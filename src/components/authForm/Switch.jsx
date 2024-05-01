@@ -1,5 +1,5 @@
-import { FastField } from "formik";
 import React from "react";
+import { FastField } from "formik";
 
 const Switch = ({ name, label }) => {
   return (
