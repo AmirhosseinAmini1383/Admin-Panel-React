@@ -18,11 +18,9 @@ const CategoriTable = () => {
       const res = await getCategoriesService(params.categoryId);
       if (res.status === 200) {
         setData(res.data.data);
-      } else {
-        Alert("خطا", res.data.message, "error");
       }
     } catch (error) {
-      Alert("خطا", "متاسفانه مشکلی از سمت سرور رخ داده است", "error");
+      console.log(error.message);
     }
   };
   useEffect(() => {
@@ -61,7 +59,7 @@ const CategoriTable = () => {
           data={data}
           dataInfo={dataInfo}
           additionField={additionField}
-          numOfPage={2}
+          numOfPage={3}
           searchParams={searchParams}
         >
           <AddCategory />
