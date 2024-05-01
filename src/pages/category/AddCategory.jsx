@@ -10,6 +10,7 @@ import {
 import { Alert } from "../../utils/alerts";
 import FormikControl from "../../components/form/FormikControl";
 import SubmitButton from "../../components/form/SubmitButton";
+import { useParams } from "react-router-dom";
 
 const initialValues = {
   parent_id: "",
@@ -65,13 +66,14 @@ const validationSchema = Yup.object({
 //   { id: 2, value: "test2" },
 // ];
 const AddCategory = ({ setForceRender }) => {
+  const params = useParams();
+  const [reInitialValues, setReInitialValues] = useState(null);
   const [parents, setParents] = useState([]);
   const handleGetParentsCategories = async () => {
     try {
       const res = await getCategoriesService();
       if (res.status == 200) {
         const allParents = res.data.data;
-        // console.log(allParents);
         setParents(
           allParents.map((p) => {
             return { id: p.id, value: p.title };
@@ -85,6 +87,13 @@ const AddCategory = ({ setForceRender }) => {
   useEffect(() => {
     handleGetParentsCategories();
   }, []);
+  useEffect(() => {
+    if (params.categoryId) {
+      setReInitialValues({ ...initialValues, parent_id: params.categoryId });
+    } else {
+      setReInitialValues(null);
+    }
+  }, [params.categoryId]);
   return (
     <>
       <button
@@ -100,11 +109,12 @@ const AddCategory = ({ setForceRender }) => {
         title={"افزودن دسته محصولات"}
       >
         <Formik
-          initialValues={initialValues}
+          initialValues={reInitialValues || initialValues}
           onSubmit={(values, actions) =>
             onSubmit(values, actions, setForceRender)
           }
           validationSchema={validationSchema}
+          enableReinitialize
         >
           <Form>
             <div className="container">
