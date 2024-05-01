@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useIsLogin } from "../../hook/authHook";
 import Login from "../../pages/auth/Login";
+import SpinnerLoad from "../../components/SpinnerLoad";
 // import Register from "../../pages/auth/Register";
 
 const AuthLayout = () => {
@@ -10,11 +11,7 @@ const AuthLayout = () => {
   return (
     <div>
       {loading ? (
-        <img
-          src={"/assets/images/icon/loading.gif"}
-          alt="loading"
-          className="waiting_center"
-        />
+        <SpinnerLoad colorClass={"text-primary"} waiting_center={true} />
       ) : !isLogin ? (
         <Routes>
           <Route path="/auth/login" element={<Login />} />

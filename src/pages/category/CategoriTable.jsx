@@ -11,8 +11,10 @@ import { convertDateToJalali } from "../../utils/convertDate";
 const CategoriTable = () => {
   const params = useParams();
   const [forceRender, setForceRender] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const handleGetCategories = async () => {
+    setLoading(true);
     try {
       const res = await getCategoriesService(params.categoryId);
       if (res.status === 200) {
@@ -20,6 +22,8 @@ const CategoriTable = () => {
       }
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -53,19 +57,16 @@ const CategoriTable = () => {
   return (
     <>
       <Outlet />
-      {data.length ? (
-        <PaginatedTable
-          data={data}
-          dataInfo={dataInfo}
-          additionField={additionField}
-          numOfPage={10}
-          searchParams={searchParams}
-        >
-          <AddCategory setForceRender={setForceRender} />
-        </PaginatedTable>
-      ) : (
-        <h5 className="text-center my-5 text-danger">هیچ دسته بندی یافت نشد</h5>
-      )}
+      <PaginatedTable
+        data={data}
+        dataInfo={dataInfo}
+        additionField={additionField}
+        numOfPage={10}
+        searchParams={searchParams}
+        loading={loading}
+      >
+        <AddCategory setForceRender={setForceRender} />
+      </PaginatedTable>
     </>
   );
 };

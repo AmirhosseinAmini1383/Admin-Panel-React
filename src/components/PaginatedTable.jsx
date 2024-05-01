@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PrevPageButton from "./PrevPageButton";
+import SpinnerLoad from "./SpinnerLoad";
 
 const PaginatedTable = ({
   data,
@@ -8,6 +9,7 @@ const PaginatedTable = ({
   children,
   searchParams,
   numOfPage,
+  loading,
 }) => {
   const [initData, setInitData] = useState(data);
   const [tableData, setTableData] = useState([]);
@@ -52,34 +54,40 @@ const PaginatedTable = ({
           {children}
         </div>
       </div>
-      <table className="table table-responsive text-center table-hover table-bordered">
-        <thead className="table-secondary">
-          <tr>
-            {dataInfo.map((i) => (
-              <th key={i.field}>{i.title}</th>
-            ))}
-            {additionField
-              ? additionField.map((a, index) => (
-                  <th key={a.id + "__" + index}>{a.title}</th>
-                ))
-              : null}
-          </tr>
-        </thead>
-        <tbody>
-          {tableData.map((d) => (
-            <tr key={d.id}>
+      {loading ? (
+        <SpinnerLoad colorClass={"text-primary"} />
+      ) : data.length ? (
+        <table className="table table-responsive text-center table-hover table-bordered">
+          <thead className="table-secondary">
+            <tr>
               {dataInfo.map((i) => (
-                <td key={i.field + "_" + d.id}>{d[i.field]}</td>
+                <th key={i.field}>{i.title}</th>
               ))}
               {additionField
                 ? additionField.map((a, index) => (
-                    <td key={a.id + "___" + index}>{a.elements(d)}</td>
+                    <th key={a.id + "__" + index}>{a.title}</th>
                   ))
                 : null}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {tableData.map((d) => (
+              <tr key={d.id}>
+                {dataInfo.map((i) => (
+                  <td key={i.field + "_" + d.id}>{d[i.field]}</td>
+                ))}
+                {additionField
+                  ? additionField.map((a, index) => (
+                      <td key={a.id + "___" + index}>{a.elements(d)}</td>
+                    ))
+                  : null}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <h5 className="text-center my-5 text-danger">هیچ دسته بندی یافت نشد</h5>
+      )}
       {pages.length > 1 ? (
         <nav
           aria-label="Page navigation example"

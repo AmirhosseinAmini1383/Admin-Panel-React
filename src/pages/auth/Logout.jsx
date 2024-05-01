@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { Alert } from "../../utils/alerts";
 import { logoutService } from "../../services/auth";
+import SpinnerLoad from "../../components/SpinnerLoad";
 
 function Logout() {
   const [loading, setLoading] = useState(true);
@@ -31,11 +32,7 @@ function Logout() {
   return (
     <div>
       {loading ? (
-        <img
-          src={"/assets/images/icon/loading.gif"}
-          alt="loading"
-          className="waiting_center"
-        />
+        <SpinnerLoad colorClass={"text-primary"} waiting_center={true} />
       ) : (
         <Navigate to={"/auth/login"} />
       )}

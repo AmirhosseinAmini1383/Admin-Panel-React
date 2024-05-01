@@ -6,17 +6,14 @@ import Sidebar from "./sidebar/Sidebar";
 import AdminContextContainer from "../../context/adminLayoutContext";
 import Content from "../../pages/Content";
 import { useIsLogin } from "../../hook/authHook";
+import SpinnerLoad from "../../components/SpinnerLoad";
 
 const Index = () => {
   const [isLogin, loading] = useIsLogin();
   return (
     <AdminContextContainer>
       {loading ? (
-        <img
-          src={"/assets/images/icon/loading.gif"}
-          alt="loading"
-          className="waiting_center"
-        />
+        <SpinnerLoad colorClass={"text-primary"} waiting_center={true} />
       ) : isLogin ? (
         <div>
           <Content />
