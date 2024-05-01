@@ -1,7 +1,7 @@
 import React from "react";
 import { ErrorMessage, FastField } from "formik";
 
-import PersonalError from "../Personal/PersonalError";
+import PersonalError from "./PersonalError";
 
 const File = ({ name, label, className, placeholder }) => {
   return (

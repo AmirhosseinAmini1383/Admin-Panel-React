@@ -1,6 +1,6 @@
 import { ErrorMessage, FastField } from "formik";
 import React from "react";
-import PersonalError from "../Personal/PersonalError";
+import PersonalError from "./PersonalError";
 
 const Input = ({ type, name, label, className, placeholder }) => {
   return (

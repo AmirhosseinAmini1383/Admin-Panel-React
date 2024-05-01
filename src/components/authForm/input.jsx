@@ -1,6 +1,6 @@
 import { ErrorMessage, Field } from "formik";
 import React from "react";
-import PersonalError from "../Personal/PersonalError";
+import PersonalError from "./PersonalError";
 
 const Input = (props) => {
   const { label, type, name, placeholder, formik } = props;

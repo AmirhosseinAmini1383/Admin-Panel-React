@@ -3,15 +3,14 @@ import React, { useEffect, useState } from "react";
 import PaginatedTable from "../../components/PaginatedTable";
 import AddCategory from "./AddCategory";
 import { getCategoriesService } from "../../services/category";
-import { Alert } from "../../utils/alerts";
 import ShowInMenu from "./tableAdditions/ShowInMenu";
 import Actions from "./tableAdditions/Actions";
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { convertDateToJalali } from "../../utils/convertDate";
 
 const CategoriTable = () => {
   const params = useParams();
-  const location = useLocation();
+  const [forceRender, setForceRender] = useState(0);
   const [data, setData] = useState([]);
   const handleGetCategories = async () => {
     try {
@@ -25,7 +24,7 @@ const CategoriTable = () => {
   };
   useEffect(() => {
     handleGetCategories();
-  }, [params]);
+  }, [params, forceRender]);
 
   const dataInfo = [
     { field: "id", title: "#" },
@@ -59,10 +58,10 @@ const CategoriTable = () => {
           data={data}
           dataInfo={dataInfo}
           additionField={additionField}
-          numOfPage={3}
+          numOfPage={10}
           searchParams={searchParams}
         >
-          <AddCategory />
+          <AddCategory setForceRender={setForceRender} />
         </PaginatedTable>
       ) : (
         <h5 className="text-center my-5 text-danger">هیچ دسته بندی یافت نشد</h5>

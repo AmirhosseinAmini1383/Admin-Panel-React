@@ -3,7 +3,10 @@ import * as Yup from "yup";
 
 import ModalsContainer from "../../components/ModalsContainer";
 import { Form, Formik } from "formik";
-import { getCategoriesService } from "../../services/category";
+import {
+  createNewCategoryService,
+  getCategoriesService,
+} from "../../services/category";
 import { Alert } from "../../utils/alerts";
 import FormikControl from "../../components/form/FormikControl";
 
@@ -15,8 +18,23 @@ const initialValues = {
   is_active: true,
   show_in_menu: true,
 };
-const onSubmit = (values, actions) => {
-  console.log(values);
+const onSubmit = async (values, actions, setForceRender) => {
+  try {
+    values = {
+      ...values,
+      is_active: values.is_active ? 1 : 0,
+      show_in_menu: values.show_in_menu ? 1 : 0,
+    };
+    const res = await createNewCategoryService(values);
+    console.log(res);
+    if (res.status == 201) {
+      Alert("ثبت رکورد", res.data.message, "success");
+      actions.resetForm();
+      setForceRender((last) => last + 1);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 const validationSchema = Yup.object({
   parent_id: Yup.number(),
@@ -32,11 +50,12 @@ const validationSchema = Yup.object({
   ),
   image: Yup.mixed()
     .test("filesize", "حجم فایل نمیتواند بیشتر 500 کیلوبایت باشد", (value) =>
-      !value ? true : value.size <= 500 * 1024
+      value === null || value === undefined ? true : value.size <= 500 * 1024
     )
     .test("format", "فرمت فایل باید jpg باشد", (value) =>
-      !value ? true : value.type === "image/jpeg"
-    ),
+      value === null || value === undefined ? true : value.type === "image/jpeg"
+    )
+    .nullable(),
   is_active: Yup.boolean(),
   show_in_menu: Yup.boolean(),
 });
@@ -44,7 +63,7 @@ const validationSchema = Yup.object({
 //   { id: 1, value: "test" },
 //   { id: 2, value: "test2" },
 // ];
-const AddCategory = () => {
+const AddCategory = ({ setForceRender }) => {
   const [parents, setParents] = useState([]);
   const handleGetParentsCategories = async () => {
     try {
@@ -81,7 +100,9 @@ const AddCategory = () => {
       >
         <Formik
           initialValues={initialValues}
-          onSubmit={onSubmit}
+          onSubmit={(values, actions) =>
+            onSubmit(values, actions, setForceRender)
+          }
           validationSchema={validationSchema}
         >
           <Form>

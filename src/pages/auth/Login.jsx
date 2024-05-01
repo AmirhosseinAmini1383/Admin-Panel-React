@@ -106,7 +106,7 @@ const Login = () => {
                     type="submit"
                     disabled={formik.isSubmitting}
                   >
-                    {formik.isSubmitting ? "...لطفا صبر کیند" : "ورود"}
+                    {formik.isSubmitting ? "...لطفا صبر کنید" : "ورود"}
                   </button>
                 </div>
               </div>
