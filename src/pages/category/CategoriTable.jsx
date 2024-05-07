@@ -2,17 +2,41 @@ import React, { useEffect, useState } from "react";
 
 import PaginatedTable from "../../components/PaginatedTable";
 import AddCategory from "./AddCategory";
-import { getCategoriesService } from "../../services/category";
+import {
+  deleteCategoryService,
+  getCategoriesService,
+} from "../../services/category";
 import ShowInMenu from "./tableAdditions/ShowInMenu";
 import Actions from "./tableAdditions/Actions";
 import { Outlet, useParams } from "react-router-dom";
 import { convertDateToJalali } from "../../utils/convertDate";
+import { Alert, Confirm } from "../../utils/alerts";
 
 const CategoriTable = () => {
   const params = useParams();
   const [forceRender, setForceRender] = useState(0);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+
+  const handleDeleteCategory = async (rowData) => {
+    if (
+      await Confirm(
+        "حذف دسته بندی",
+        `آیا از حذف ${rowData.title} اطمینان دارید؟`
+      )
+    ) {
+      try {
+        const res = await deleteCategoryService(rowData.id);
+        if (res.status == 200) {
+          setData(data.filter((d) => d.id != rowData.id));
+          Alert("انجام شد", res.data.message, "success");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const handleGetCategories = async () => {
     setLoading(true);
     try {
@@ -46,7 +70,12 @@ const CategoriTable = () => {
     },
     {
       title: "عملیات",
-      elements: (rowData) => <Actions rowData={rowData} />,
+      elements: (rowData) => (
+        <Actions
+          rowData={rowData}
+          handleDeleteCategory={handleDeleteCategory}
+        />
+      ),
     },
   ];
   const searchParams = {

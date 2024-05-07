@@ -19,8 +19,6 @@ const AddCategory = ({ setForceRender }) => {
   const [parents, setParents] = useState([]);
   const [editCategory, setEditCategory] = useState(null);
   const { editId, setEditId } = useContext(CategoryContext);
-  console.log(editId);
-  console.log(editCategory);
   const handleGetSingleCategory = async () => {
     try {
       const res = await getSingleCategoryService(editId);
