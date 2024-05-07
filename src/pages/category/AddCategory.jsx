@@ -1,74 +1,39 @@
-import React, { useEffect, useState } from "react";
-import * as Yup from "yup";
+import React, { useContext, useEffect, useState } from "react";
 
 import ModalsContainer from "../../components/ModalsContainer";
 import { Form, Formik } from "formik";
 import {
-  createNewCategoryService,
   getCategoriesService,
+  getSingleCategoryService,
 } from "../../services/category";
 import { Alert } from "../../utils/alerts";
 import FormikControl from "../../components/form/FormikControl";
 import SubmitButton from "../../components/form/SubmitButton";
 import { useParams } from "react-router-dom";
+import { CategoryContext } from "../../context/categoryContext";
+import { initialValues, onSubmit, validationSchema } from "./core";
 
-const initialValues = {
-  parent_id: "",
-  title: "",
-  description: "",
-  image: null,
-  is_active: true,
-  show_in_menu: true,
-};
-const onSubmit = async (values, actions, setForceRender) => {
-  try {
-    values = {
-      ...values,
-      is_active: values.is_active ? 1 : 0,
-      show_in_menu: values.show_in_menu ? 1 : 0,
-    };
-    const res = await createNewCategoryService(values);
-    console.log(res);
-    if (res.status == 201) {
-      Alert("ثبت رکورد", res.data.message, "success");
-      actions.resetForm();
-      setForceRender((last) => last + 1);
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-const validationSchema = Yup.object({
-  parent_id: Yup.number(),
-  title: Yup.string()
-    .required("لطفا این قسمت را پر کنید")
-    .matches(
-      /^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/,
-      "فقط از حروف و اعداد استفاده شود"
-    ),
-  description: Yup.string().matches(
-    /^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/,
-    "فقط از حروف و اعداد استفاده شود"
-  ),
-  image: Yup.mixed()
-    .test("filesize", "حجم فایل نمیتواند بیشتر 500 کیلوبایت باشد", (value) =>
-      value === null || value === undefined ? true : value.size <= 500 * 1024
-    )
-    .test("format", "فرمت فایل باید jpg باشد", (value) =>
-      value === null || value === undefined ? true : value.type === "image/jpeg"
-    )
-    .nullable(),
-  is_active: Yup.boolean(),
-  show_in_menu: Yup.boolean(),
-});
-// const parents = [
-//   { id: 1, value: "test" },
-//   { id: 2, value: "test2" },
-// ];
 const AddCategory = ({ setForceRender }) => {
   const params = useParams();
   const [reInitialValues, setReInitialValues] = useState(null);
   const [parents, setParents] = useState([]);
+  const [editCategory, setEditCategory] = useState(null);
+  const { editId, setEditId } = useContext(CategoryContext);
+  console.log(editId);
+  console.log(editCategory);
+  const handleGetSingleCategory = async () => {
+    try {
+      const res = await getSingleCategoryService(editId);
+      // console.log(res);
+      if (res.status == 200) {
+        const oldCategory = res.data.data;
+        setEditCategory(oldCategory);
+      }
+    } catch (error) {
+      Alert("مشکل...!", "متاسفانه دسته مورد نظر دریافت نشد", "warning");
+    }
+  };
+
   const handleGetParentsCategories = async () => {
     try {
       const res = await getCategoriesService();
@@ -85,33 +50,53 @@ const AddCategory = ({ setForceRender }) => {
     }
   };
   useEffect(() => {
+    if (editId) handleGetSingleCategory();
+    else setEditCategory(null);
+  }, [editId]);
+  useEffect(() => {
     handleGetParentsCategories();
   }, []);
   useEffect(() => {
-    if (params.categoryId) {
+    if (editCategory) {
+      setReInitialValues({
+        parent_id: editCategory.parent_id || "",
+        title: editCategory.title,
+        description: editCategory.description,
+        image: null,
+        is_active: editCategory.is_active ? true : false,
+        show_in_menu: editCategory.show_in_menu ? true : false,
+      });
+    } else if (params.categoryId) {
       setReInitialValues({ ...initialValues, parent_id: params.categoryId });
     } else {
       setReInitialValues(null);
     }
-  }, [params.categoryId]);
+  }, [params.categoryId, editCategory]);
   return (
     <>
       <button
         className="btn btn-success d-flex justify-content-center align-items-center"
         data-bs-toggle="modal"
         data-bs-target="#add_product_category_modal"
+        onClick={() => {
+          setEditId(null);
+        }}
       >
         <i className="fas fa-plus text-light"></i>
       </button>
       <ModalsContainer
         id={"add_product_category_modal"}
         fullScreen={true}
-        title={"افزودن دسته محصولات"}
+        title={
+          editId
+            ? "ویرایش : " + (editCategory ? editCategory.title : "")
+            : "افزودن دسته محصولات"
+        }
       >
         <Formik
           initialValues={reInitialValues || initialValues}
           onSubmit={(values, actions) =>
-            onSubmit(values, actions, setForceRender)
+            onSubmit(values, actions, setForceRender, editId)
           }
           validationSchema={validationSchema}
           enableReinitialize
@@ -143,13 +128,15 @@ const AddCategory = ({ setForceRender }) => {
                   label="توضیحات"
                   placeholder="توضیحات"
                 />
-                <FormikControl
-                  className="col-md-6 col-lg-8"
-                  control="file"
-                  name="image"
-                  label="تصویر"
-                  placeholder="تصویر"
-                />
+                {!editId ? (
+                  <FormikControl
+                    className="col-md-6 col-lg-8"
+                    control="file"
+                    name="image"
+                    label="تصویر"
+                    placeholder="تصویر"
+                  />
+                ) : null}
                 <div className="col-12 col-md-6 col-lg-8 row justify-content-center">
                   <div className="col-12 col-md-4 col-lg-3 mx-lg-5">
                     <FormikControl
