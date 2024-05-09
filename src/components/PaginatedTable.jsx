@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PrevPageButton from "./PrevPageButton";
 import SpinnerLoad from "./SpinnerLoad";
 
 const PaginatedTable = ({
@@ -86,7 +85,7 @@ const PaginatedTable = ({
           </tbody>
         </table>
       ) : (
-        <h5 className="text-center my-5 text-danger">هیچ دسته بندی یافت نشد</h5>
+        <h5 className="text-center my-5 text-danger">هیچ رکوردی یافت نشد</h5>
       )}
       {pages.length > 1 ? (
         <nav
